@@ -1,0 +1,22 @@
+<div class="login" *ngIf="url == '/login'">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <input type="email" name="email" formControlName="email">
+        <input type="password" name="password" formControlName="password">
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+<div class="logup" *ngIf="url == '/logup'">
+    <form [formGroup]="logupForm" (ngSubmit)="logup()">
+        <input type="email" name="email" formControlName="email">
+        <input type="password" name="password" formControlName="password">
+        <input type="text" name="username" formControlName="username">
+        <!-- Create a select for role (admin, member, guest) -->
+        <select name="role" formControlName="role">
+            <option value="admin">Admin</option>
+            <option value="member">Member</option>
+            <option value="guest">Guest</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>

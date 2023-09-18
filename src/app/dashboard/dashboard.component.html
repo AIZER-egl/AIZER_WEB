@@ -1,0 +1,5 @@
+<p>Hola {{user?.username}}</p>
+
+<a routerLink="/logout">Cerrar sesión</a>
+<br>
+<a routerLink="/logup" *ngIf="user?.role == 'admin'">Crear usuario</a>
