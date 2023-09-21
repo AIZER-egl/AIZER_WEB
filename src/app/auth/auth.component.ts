@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth-service.service';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, UrlSerializer } from '@angular/router';
+import { UsersService } from '../users.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,7 +10,7 @@ import { Router, UrlSerializer } from '@angular/router';
   styleUrls: ['./auth.component.sass']
 })
 export class AuthComponent {
-  constructor (private authService: AuthService, private formBuilder: FormBuilder, private urlSerializer: UrlSerializer, private router: Router) {
+  constructor (private authService: AuthService, private usersService: UsersService, private formBuilder: FormBuilder, private urlSerializer: UrlSerializer, private router: Router) {
     if (this.url == '/logout') {
       this.authService.logout();
       window.location.href = '/';
@@ -37,8 +38,7 @@ export class AuthComponent {
     this.authService.login(this.loginForm.value);
   }
   public logup() {
-    console.log(this.logupForm.value)
-    this.authService.logup(this.logupForm.value)?.subscribe(() => {
+    this.usersService.logup(this.logupForm.value)?.subscribe(() => {
       window.location.href = '/dashboard/';
     }, (error) => {
       alert('Error: ' + error.error.message);

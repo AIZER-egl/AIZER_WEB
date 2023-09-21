@@ -1,5 +1,7 @@
-<nav>
-    <a href="/login" *ngIf="!user">Inicia sesión</a>
+<nav *ngIf="!user">
+    <a href="/login">Inicia sesión</a>
+</nav>
 
-    <a href="/login" *ngIf="user">Sesion iniciada</a>
+<nav *ngIf="user">
+    <a href="/login">Hola {{user.username}}</a>
 </nav>

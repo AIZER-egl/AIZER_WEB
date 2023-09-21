@@ -46,16 +46,4 @@ export class AuthService {
 
     return this.http.get(this.authEndpoint + '/auth/verify', { headers }) as Observable<UserObserver | null>;
   }
-
-  public logup ({ email, password, username, role }: { email: string, password: string, username: string, role: 'admin' | 'member' | 'guest' }): Observable<UserObserver | null> | null {
-    const token = this.token;
-    if (!token) return null;
-
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${token}`);
-    
-    const body = { email, password, username, role };
-    return this.http.post(this.authEndpoint + '/auth/logup', body, { headers }) as Observable<UserObserver | null>;
-  }
 }

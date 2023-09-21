@@ -24,7 +24,8 @@ export class DashboardComponent {
       this.user = user.user;
       console.log(this.user);
     }, (error) => {
-      alert('Error: ' + error.error.message);
+      this.authService.logout();
+      window.location.href = '/login'
     });
   }
 

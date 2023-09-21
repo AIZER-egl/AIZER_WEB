@@ -10,6 +10,8 @@ import { AuthComponent } from './auth/auth.component';
 import { FooterComponent } from './footer/footer.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { UsersComponent } from './users/users.component';
+import { ProyectsComponent } from './proyects/proyects.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     AuthComponent,
     FooterComponent,
     NavbarComponent,
-    DashboardComponent
+    DashboardComponent,
+    UsersComponent,
+    ProyectsComponent
   ],
   imports: [
     BrowserModule,
