@@ -1,0 +1,28 @@
+<section>
+    <div class="groups">
+        Mis grupos
+        <div class="group" *ngFor="let groupf of groups">
+            <div class="group__info">
+                <h3 class="group__name">{{ groupf.name }}</h3>
+                <p>{{groupf.campus}}</p>
+                <p class="group__members">{{ groupf.members.length }} Members</p>
+            </div>
+            <a [href]="'/groups/' + groupf.uuid">Entrar</a>
+        </div>
+    </div>
+
+    <div class="groups">
+        Grupos externos
+        <div class="group" *ngFor="let groupf of external">
+            <div class="group__info">
+                <h3 class="group__name">{{ groupf.name }}</h3>
+                <p>{{groupf.campus}}</p>
+                <div class="group__members">
+                    <span class="group__members__count">{{ groupf.members.length }}</span>
+                    <span class="group__members__text">Members</span>
+                </div>
+            </div>
+            <p (click)="requestJoin(groupf.uuid)">Solicitar entrar</p>
+        </div>
+    </div>
+</section>

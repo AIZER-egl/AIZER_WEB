@@ -5,24 +5,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './home/home/home.component';
+import { NavbarComponent } from './home/navbar/navbar.component';
+import { FooterComponent } from './home/footer/footer.component';
 import { AuthComponent } from './auth/auth.component';
-import { FooterComponent } from './footer/footer.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UsersComponent } from './users/users.component';
-import { ProyectsComponent } from './proyects/proyects.component';
+import { AlertsComponent } from './alerts/alerts.component';
+import { GroupsComponent } from './groups/groups/groups.component';
+import { GroupComponent } from './groups/group/group.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    AuthComponent,
-    FooterComponent,
     NavbarComponent,
-    DashboardComponent,
-    UsersComponent,
-    ProyectsComponent
+    FooterComponent,
+    AuthComponent,
+    AlertsComponent,
+    GroupsComponent,
+    GroupComponent,
   ],
   imports: [
     BrowserModule,

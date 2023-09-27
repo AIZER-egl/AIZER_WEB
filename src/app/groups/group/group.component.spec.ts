@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsersComponent } from './users.component';
+import { GroupComponent } from './group.component';
 
-describe('UsersComponent', () => {
-  let component: UsersComponent;
-  let fixture: ComponentFixture<UsersComponent>;
+describe('GroupComponent', () => {
+  let component: GroupComponent;
+  let fixture: ComponentFixture<GroupComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [UsersComponent]
+      declarations: [GroupComponent]
     });
-    fixture = TestBed.createComponent(UsersComponent);
+    fixture = TestBed.createComponent(GroupComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

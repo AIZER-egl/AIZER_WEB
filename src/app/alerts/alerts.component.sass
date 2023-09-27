@@ -1,0 +1,65 @@
+.alert
+    position: fixed
+    top: 10px
+    right: 10px
+    width: 40%
+    z-index: 9999
+    padding: 10px
+    border-radius: 5px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+
+    .content
+        display: flex
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        color: #fff
+        font-size: 16px
+        font-weight: 500
+        padding: 10px
+        i
+            margin-right: 10px
+
+    .bx.bx-x
+        font-size: 2rem
+        cursor: pointer
+        color: #fff
+    &::after
+        content: ''
+        display: block
+        height: 5px
+        background-color: #000
+        position: absolute
+        bottom: 0
+        left: 0
+        animation: time 10s linear
+
+.info
+    background-color: #2196F3
+    &::after
+        background-color: #61b1f1
+.danger
+    background-color: #f44336
+    &::after
+        background-color: #f47c7c
+.warning
+    background-color: #fd9103
+    &::after
+        background-color: #fdd27a
+.success
+    background-color: #4CAF50
+    &::after
+        background-color: #7bc67b
+
+@media screen and (max-width: 1080px)
+    .alert
+        width: 80%
+
+@keyframes time
+    0%
+        width: 0
+    100%
+        width: 100%

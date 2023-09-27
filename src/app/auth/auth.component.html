@@ -1,22 +1,53 @@
-<div class="login" *ngIf="url == '/login'">
+<div *ngIf="url == '/login'" class="login">
     <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <input type="email" name="email" formControlName="email">
-        <input type="password" name="password" formControlName="password">
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" formControlName="email" id="email" placeholder="Emails">
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" id="password" placeholder="Password">
+        </div>
+        <button type="submit">Login</button>
     </form>
+    <a routerLink="/logup">No tienes cuenta? Crea una</a>
 </div>
 
 <div class="logup" *ngIf="url == '/logup'">
     <form [formGroup]="logupForm" (ngSubmit)="logup()">
-        <input type="email" name="email" formControlName="email">
-        <input type="password" name="password" formControlName="password">
-        <input type="text" name="username" formControlName="username">
-        <!-- Create a select for role (admin, member, guest) -->
-        <select name="role" formControlName="role">
-            <option value="admin">Admin</option>
-            <option value="member">Member</option>
-            <option value="guest">Guest</option>
-        </select>
-        <button type="submit">Submit</button>
+        <div class="form-group">
+            <label for="email">Correo electrónico</label>
+            <input type="email" formControlName="email" id="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+            <label for="passwordHash">Contraseña</label>
+            <input type="password" formControlName="passwordHash" id="passwordHash" placeholder="Password">
+        </div>
+        <div class="form-group">
+            <label for="username">Nombre</label>
+            <input type="text" formControlName="username" id="username" placeholder="Username">
+        </div>
+        <div class="form-group">
+            <label for="campus">Campus</label>
+            <select formControlName="campus" id="campus">
+                <option value="EGL">PrepaTec Eugenio Garza Lagüera</option>
+                <option value="EGS">PrepaTec Eugenio Garza Sada</option>
+                <option value="VA">PrepaTec Valle Alto</option>
+                <option value="CU">PrepaTec Cumbres</option>
+                <option value="SA">PrepaTec Santa Catarina</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="graduationYear">Año de graduación</label>
+            <select name="graduationYear" id="graduationYear" formControlName="graduationYear">
+                <option value="2024">2024</option>
+                <option value="2024">2025</option>
+                <option value="2024">2026</option>
+            </select>
+        </div>
+        <button type="submit">Logup</button>
     </form>
+
+    <a routerLink="/login">Ya tienes cuenta? Ingresa a ella</a>
+
 </div>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth-service.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Router, UrlSerializer } from '@angular/router';
-import { UsersService } from '../users.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -10,14 +9,24 @@ import { UsersService } from '../users.service';
   styleUrls: ['./auth.component.sass']
 })
 export class AuthComponent {
-  constructor (private authService: AuthService, private usersService: UsersService, private formBuilder: FormBuilder, private urlSerializer: UrlSerializer, private router: Router) {
+  constructor (
+    private authService: AuthService,
+    private router: Router,
+    private urlSerializer: UrlSerializer,
+    private formBuilder: FormBuilder,
+  ) {
     if (this.url == '/logout') {
       this.authService.logout();
       window.location.href = '/';
     }
 
     if (this.authService.isLoggedIn() && this.url == '/login') {
-      window.location.href = '/dashboard/';
+      this.authService.getUser()?.subscribe(() => {
+        window.location.href = '/groups/';
+      }, (error) => {
+        this.authService.logout();
+        window.location.href = '/login';
+      })
     }
   }
 
@@ -27,21 +36,20 @@ export class AuthComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+
   public logupForm: FormGroup = this.formBuilder.group({
     email: ['', Validators.required],
-    password: ['', Validators.required],
+    passwordHash: ['', Validators.required],
     username: ['', Validators.required],
-    role: ['', Validators.required],
+    graduationYear: ['', Validators.required],
+    campus: ['', Validators.required],
   });
 
-  public login() {
+  public login (): void {
     this.authService.login(this.loginForm.value);
   }
-  public logup() {
-    this.usersService.logup(this.logupForm.value)?.subscribe(() => {
-      window.location.href = '/dashboard/';
-    }, (error) => {
-      alert('Error: ' + error.error.message);
-    });
+
+  public logup (): void {
+    this.authService.logup(this.logupForm.value);
   }
 }

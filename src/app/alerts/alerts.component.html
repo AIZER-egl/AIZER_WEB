@@ -1,0 +1,12 @@
+<div class="alert" *ngFor="let alert of alerts" [ngClass]="alert.type">
+    <div class="content">
+        <i *ngIf="alert.type == 'info'" class="bx bx-info-circle"></i>
+        <i *ngIf="alert.type == 'danger'" class="bx bx-error-circle"></i>
+        <i *ngIf="alert.type == 'warning'" class="bx bx-error"></i>
+        <i *ngIf="alert.type == 'success'" class="bx bx-check-circle"></i>
+    
+        <p>{{ alert.message }}</p>    
+    </div>
+
+    <i class='bx bx-x' (click)="closeAlert()"></i>
+</div>

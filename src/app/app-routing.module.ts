@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-
-import { HomeComponent } from './home/home.component';
+import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { UsersComponent } from './users/users.component';
+import { HomeComponent } from './home/home/home.component';
+import { GroupsComponent } from './groups/groups/groups.component';
+import { GroupComponent } from './groups/group/group.component';
+
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: AuthComponent },
-  { path: 'logout', component: AuthComponent },
   { path: 'logup', component: AuthComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'dashboard/users', component: UsersComponent },
+  { path: 'logout', component: AuthComponent },
+  { path: 'groups', component: GroupsComponent },
+  { path: 'groups/:uuid', component: GroupComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
