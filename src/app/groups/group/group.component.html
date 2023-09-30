@@ -1,4 +1,31 @@
-<app-navbar [group]="group"></app-navbar>
+<app-navbar [group]="uuid"></app-navbar>
 
-{{stringify(group)}}
+<div class="cards">
+    <div class="card" *ngFor="let contentf of content">
+        <div class="content">
+            <p *ngIf="content_type == 'members'">{{contentf.user.username}}</p>
+            <p *ngIf="content_type == 'members'">{{contentf.user.email}}</p>
+        
+            <p *ngIf="content_type == 'membersRequests'">{{contentf.username}}</p>
+            <p *ngIf="content_type == 'membersRequests'">{{contentf.email}}</p>
 
+            <p *ngIf="content_type == 'logHistory'">{{contentf.user.username}}</p>
+            <p *ngIf="content_type == 'logHistory'">{{contentf.message}}</p>
+            <span *ngIf="content_type == 'logHistory'">{{contentf.action}}</span>
+            <span *ngIf="content_type == 'logHistory'">{{contentf.timestamp}}</span>
+        </div>
+        <div class="actions">
+            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/users/' + contentf.user.uuid">Ver</a>
+            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/users/' + contentf.user.uuid + '/edit'">Editar</a>
+
+            <a *ngIf="content_type == 'membersRequests'" [routerLink]="'/users/' + uuid">Ver</a>
+            <a *ngIf="content_type == 'membersRequests'" (click)="acceptMemberRequest(contentf.uuid)">Aceptar</a>
+            <a *ngIf="content_type == 'membersRequests'" (click)="rejectMemberRequest(contentf.uuid)">Rechazar</a>
+        </div>
+    </div>
+</div>
+
+<div class="content_actions">
+    <a *ngIf="content_type == 'membersRequests'" (click)="acceptAllMemberRequests()">Aceptar todos</a>
+    <a *ngIf="content_type == 'membersRequests'" (click)="rejectAllMemberRequests()">Rechazar todos</a>
+</div>

@@ -23,7 +23,7 @@ export class GroupsComponent {
         this.groups = groups.groups;
         this.external = groups.externalGroups;
       }
-    }, (error) => {
+    }, () => {
       this.authService.logout();
       this.alertsService.info('Debes iniciar sesión para ver tus grupos');
     });
@@ -32,7 +32,6 @@ export class GroupsComponent {
   public requestJoin(uuid: string) {
     this.alertsService.info('Enviando solicitud...');
     this.groupsService.requestJoinGroup(uuid)?.subscribe((userf) => {
-      console.log(userf);
       if (!userf?.user) {
         this.alertsService.danger('No se ha podido enviar la solicitud');
       }
@@ -40,7 +39,8 @@ export class GroupsComponent {
         this.alertsService.success('Solicitud enviada');
       }
     }, (error) => {
-      this.alertsService.danger('No se ha podido enviar la solicitud');
+      if (error.status == 409) this.alertsService.warning('Ya has enviado una solicitud a este grupo');
+      else this.alertsService.danger('No se ha podido enviar la solicitud');
     });
   }
 }

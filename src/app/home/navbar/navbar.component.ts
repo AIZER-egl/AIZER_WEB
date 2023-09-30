@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { User } from 'src/@types/user/users';
 import { AuthService } from 'src/app/auth-service.service';
 
-import { Group } from 'src/@types/groups/groups';
+import { FullGroup } from 'src/@types/groups/groups';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +10,7 @@ import { Group } from 'src/@types/groups/groups';
   styleUrls: ['./navbar.component.sass']
 })
 export class NavbarComponent {
-  @Input () group?: Group | null = null;
+  @Input () group?: string | null;
   public user: User | null = null;
 
   constructor (private authService: AuthService) {

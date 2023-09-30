@@ -37,7 +37,8 @@ export class AuthService {
     this.http.post(api.authEndpoint + '/logup', body, { headers })
       .subscribe((response: any) => {
         this.token = response.token;
-        window.location.href = '/groups/'
+        window.location.href = '/'
+        this.alertsService.info('Inicia sesión para activar tu cuenta');
       }, (error) => {
         this.alertsService.danger(error.error.message);
       });

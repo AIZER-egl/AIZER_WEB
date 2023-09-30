@@ -1,4 +1,4 @@
-<nav>
+<nav *ngIf="!group">
     <a href="/">Inicio</a>
     <a href="/login" *ngIf="!user">Iniciar sesión</a>
     <a href="/groups" *ngIf="user">Mis grupos</a>
@@ -8,11 +8,11 @@
 
 <div class="group_sidebar" *ngIf="group">
     <ul>
-        <li><a [href]="'/groups/' + group.uuid">Inicio</a></li>
-        <li><a [href]="'/groups/' + group.uuid + '/projects'">Proyectos</a></li>
-        <li><a [href]="'/groups/' + group.uuid + '/items'">Inventario</a></li>
-        <li><a [href]="'/groups/' + group.uuid + '/members'">Miembros</a></li>
-        <li><a [href]="'/groups/' + group.uuid + '/requests'">Solicitudes</a></li>
-        <li><a [href]="'/groups/' + group.uuid + '/history'">Historial</a></li>
+        <li><a [routerLink]="'/groups/' + group">Inicio</a></li>
+        <li><a [routerLink]="'/groups/' + group" [queryParams]="{'q': 'projects'}">Proyectos</a></li>
+        <li><a [routerLink]="'/groups/' + group" [queryParams]="{'q': 'items'}">Inventario</a></li>
+        <li><a [routerLink]="'/groups/' + group" [queryParams]="{'q': 'members'}">Miembros</a></li>
+        <li><a [routerLink]="'/groups/' + group" [queryParams]="{'q': 'membersRequests'}">Solicitudes</a></li>
+        <li><a [routerLink]="'/groups/' + group" [queryParams]="{'q': 'logHistory'}">Historial</a></li>
     </ul>
 </div>

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,6 +13,7 @@ import { AuthComponent } from './auth/auth.component';
 import { AlertsComponent } from './alerts/alerts.component';
 import { GroupsComponent } from './groups/groups/groups.component';
 import { GroupComponent } from './groups/group/group.component';
+import { UsersComponent } from './users/users.component';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { GroupComponent } from './groups/group/group.component';
     AlertsComponent,
     GroupsComponent,
     GroupComponent,
+    UsersComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
