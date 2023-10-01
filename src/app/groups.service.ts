@@ -16,75 +16,70 @@ export class GroupsService {
 
   constructor(private http: HttpClient, private authService: AuthService, private alertsService: AlertsService) { }
 
-  public getGroups (): Observable<AllGroupObservable | null> | null {
-    if (!this.authService.isLoggedIn()) return null;
+  public getGroups (): Observable<AllGroupObservable | null> {
     const headers = this.authService.getHeaders();
-    return this.http.get(api.groupsEndpoint, { headers }) as Observable<AllGroupObservable | null>;
+    return this.http.get(api.groupsEndpoint, { headers, withCredentials: true }) as Observable<AllGroupObservable | null>;
   }
 
-  public getGroup (uuid: string): Observable<GroupObservable | null> | null {
-    if (!this.authService.isLoggedIn()) return null;
+  public getGroup (uuid: string): Observable<GroupObservable | null> {
     const headers = this.authService.getHeaders();
-    return this.http.get(api.groupsEndpoint + `/${uuid}`, { headers }) as Observable<GroupObservable | null>;
+    return this.http.get(api.groupsEndpoint + `/${uuid}`, { headers, withCredentials: true }) as Observable<GroupObservable | null>;
   }
 
-  public requestJoinGroup (uuid: string): Observable<UserObserver | null> | null {
-    if (!this.authService.isLoggedIn()) return null;
+  public requestJoinGroup (uuid: string): Observable<UserObserver | null> {
     const headers = this.authService.getHeaders();
-    return this.http.post(api.groupsEndpoint + `/${uuid}/members/request`, {}, { headers }) as Observable<UserObserver | null>;
+    return this.http.post(api.groupsEndpoint + `/${uuid}/members/request`, {}, { headers, withCredentials: true }) as Observable<UserObserver | null>;
   }
 
-  public requestFullGroup (uuid: string): Observable<FullGroupObservable | null> | null {
-    if (!this.authService.isLoggedIn()) return null;
+  public requestFullGroup (uuid: string): Observable<FullGroupObservable | null> {
     const headers = this.authService.getHeaders();
-    return this.http.get(api.groupsEndpoint + `/${uuid}/full`, { headers }) as Observable<FullGroupObservable | null>;
+    return this.http.get(api.groupsEndpoint + `/${uuid}/full`, { headers, withCredentials: true }) as Observable<FullGroupObservable | null>;
   };
 
   public acceptMemberRequest (uuid: string, uuidf: string) {
-    if (!this.authService.isLoggedIn()) return null;
     const headers = this.authService.getHeaders();
-    return this.http.post(api.groupsEndpoint + `/${uuid}/members/accept/${uuidf}`, {}, { headers }).subscribe(
+    return this.http.post(api.groupsEndpoint + `/${uuid}/members/accept/${uuidf}`, {}, { headers, withCredentials: true }).subscribe(
       () => {
         this.alertsService.success(`Se ha agregado al usuario a tu grupo`);
-      }
-      , () => {
+      },
+      () => {
       this.alertsService.danger('No se ha podido aceptar la solicitud');
     });
   };
 
   public acceptAllMemberRequests (uuid: string) {
-    if (!this.authService.isLoggedIn()) return null;
     const headers = this.authService.getHeaders();
-    return this.http.post(api.groupsEndpoint + `/${uuid}/members/accept`, {}, { headers }).subscribe(
+    return this.http.post(api.groupsEndpoint + `/${uuid}/members/accept`, {}, { headers, withCredentials: true }).subscribe(
       () => {
         this.alertsService.success(`Se han agregado todos los usuarios a tu grupo`);
+      },
+      () => {
+        this.alertsService.danger('No se ha podido aceptar la solicitud');
       }
-      , () => {
-      this.alertsService.danger('No se ha podido aceptar la solicitud');
-    });
+    );
   }
 
   public rejectMemberRequest (uuid: string, uuidf: string) {
-    if (!this.authService.isLoggedIn()) return null;
     const headers = this.authService.getHeaders();
-    return this.http.post(api.groupsEndpoint + `/${uuid}/members/reject/${uuidf}`, {}, { headers }).subscribe(
+    return this.http.post(api.groupsEndpoint + `/${uuid}/members/reject/${uuidf}`, {}, { headers, withCredentials: true }).subscribe(
       () => {
         this.alertsService.success(`Se ha rechazado la solicitud`);
+      },
+      () => {
+        this.alertsService.danger('No se ha podido rechazar la solicitud');
       }
-      , () => {
-      this.alertsService.danger('No se ha podido rechazar la solicitud');
-    });
+    );
   }
 
   public rejectAllMemberRequests (uuid: string) {
-    if (!this.authService.isLoggedIn()) return null;
     const headers = this.authService.getHeaders();
-    return this.http.post(api.groupsEndpoint + `/${uuid}/members/reject`, {}, { headers }).subscribe(
+    return this.http.post(api.groupsEndpoint + `/${uuid}/members/reject`, {}, { headers, withCredentials: true }).subscribe(
       () => {
         this.alertsService.success(`Se han rechazado todas las solicitudes`);
+      },
+      () => {
+        this.alertsService.danger('No se ha podido rechazar la solicitud');
       }
-      , () => {
-      this.alertsService.danger('No se ha podido rechazar la solicitud');
-    });
+    );
   }
 }

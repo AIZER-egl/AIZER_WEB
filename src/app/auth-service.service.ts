@@ -2,11 +2,12 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 
 import { UserObserver } from 'src/@types/observables/UserObservable';
 import api from 'src/keys';
 import { AlertsService } from './alerts.service';
+import { User } from 'src/@types/user/users';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,12 @@ export class AuthService {
 
   public login ({ email, password }: { email: string, password: string }) {
     const body = { email, password };
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    this.http.post(api.authEndpoint + '/login', body, { headers })
-      .subscribe((response: any) => {
-        if (!response.token) this.alertsService.danger('Invalid credentials');
-        else {
-          this.token = response.token;
-          window.location.href = '/groups/';
-          this.alertsService.success('Logged in successfully');
-        }
-      }, (error) => {
+    const headers = this.getHeaders();
+    this.http.post(api.authEndpoint + '/login', body, { headers, withCredentials: true, observe: 'response' })
+      .subscribe(() => {
+        window.location.href = '/groups/';
+        this.alertsService.success('Logged in successfully');
+      }, () => {
         this.alertsService.danger('Invalid credentials');
       });
   }
@@ -35,8 +32,7 @@ export class AuthService {
     const body = { email, passwordHash, username, schoolInformation: { graduationYear, campus } };
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     this.http.post(api.authEndpoint + '/logup', body, { headers })
-      .subscribe((response: any) => {
-        this.token = response.token;
+      .subscribe(() => {
         window.location.href = '/'
         this.alertsService.info('Inicia sesión para activar tu cuenta');
       }, (error) => {
@@ -44,23 +40,32 @@ export class AuthService {
       });
   }
 
-  public getUser(): Observable<UserObserver | null> | null{
-    const token = this.token;
-    if (!token) return null;
+  private user: User | null = null;
+  public getUser(): Observable<UserObserver | null>{
     const headers = this.getHeaders();
-    return this.http.get(api.authEndpoint + '/verify', { headers }) as Observable<UserObserver | null>;
+    
+    if (this.user) {
+      return new Observable((observer) => {
+        observer.next({ user: this.user! });
+      }) as Observable<UserObserver | null>;
+    }
+
+    return this.http.get(api.authEndpoint + '/verify', { headers, withCredentials: true }).pipe(
+      tap((req: any) => {
+        if (req.user) this.user = req.user;
+        else this.user = null;
+      })
+    ) as Observable<UserObserver | null>;
   }
+
 
   public getHeaders (): HttpHeaders {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/json')
-      .set('Authorization', `Bearer ${this.token}`);
     return headers;
   }
 
-  public logout (): void { localStorage.removeItem('token'); }
-  public isLoggedIn (): boolean { return !!localStorage.getItem('token'); }
-
-  public set token (token: string) { localStorage.setItem('token', token); }
-  public get token (): string | null { return localStorage.getItem('token'); }
+  public logout (): void {
+    this.http.post(api.authEndpoint + '/logout', {}, { headers: this.getHeaders(), withCredentials: true, observe: 'response' });
+  }
 }

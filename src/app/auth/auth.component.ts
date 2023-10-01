@@ -20,12 +20,9 @@ export class AuthComponent {
       window.location.href = '/';
     }
 
-    if (this.authService.isLoggedIn() && this.url == '/login') {
-      this.authService.getUser()?.subscribe(() => {
+    if (this.url == '/login') {
+      this.authService.getUser().subscribe(() => {
         window.location.href = '/groups/';
-      }, (error) => {
-        this.authService.logout();
-        window.location.href = '/login';
       })
     }
   }
