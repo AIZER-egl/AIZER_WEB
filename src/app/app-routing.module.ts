@@ -4,6 +4,7 @@ import { AuthComponent } from './auth/auth.component';
 import { HomeComponent } from './home/home/home.component';
 import { GroupsComponent } from './groups/groups/groups.component';
 import { GroupComponent } from './groups/group/group.component';
+import { UsersComponent } from './users/users.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,9 @@ const routes: Routes = [
   { path: 'logout', component: AuthComponent },
   { path: 'groups', component: GroupsComponent },
   { path: 'groups/:uuid', component: GroupComponent },
+  { path: 'groups/:uuid/members/:uuidf', component: UsersComponent },
+  { path: 'groups/:uuid/members/:uuidf/edit', component: UsersComponent },
+  { path: 'users/:uuid', component: UsersComponent },
 ];
 
 @NgModule({

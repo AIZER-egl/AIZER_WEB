@@ -2,8 +2,13 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FullGroup, Group } from 'src/@types/groups/groups';
 import { Log } from 'src/@types/groups/log';
+import { Member } from 'src/@types/groups/member';
+import { Roles } from 'src/@types/groups/roles';
+import { User } from 'src/@types/user/users';
 import { AlertsService } from 'src/app/alerts.service';
+import { AuthService } from 'src/app/auth-service.service';
 import { GroupsService } from 'src/app/groups.service';
+import { UsersService } from 'src/app/users.service';
 
 @Component({
   selector: 'app-group',
@@ -17,15 +22,35 @@ export class GroupComponent {
   public content_type: string = ''; 
   public content: any = [];
 
+  public self: User | null = null;
+  public selfMember: Member | null = null;
+
   constructor (
     private groupsService: GroupsService,
     private alertsService: AlertsService,
     private activatedRoute: ActivatedRoute,
+    private usersService: UsersService,
+    private authService: AuthService,
   ) {
     this.activatedRoute.params.subscribe((params) => {
       this.uuid = params['uuid'];
       this.loadGroup();
+      this.loadSelf();
     })
+  }
+
+  private loadSelf() {
+    this.authService.getUser().subscribe((r) => {
+      this.self = r?.user as User;
+      this.usersService.getMember(this.self.uuid, this.uuid).subscribe((r) => {
+        this.selfMember = r?.member as Member;
+      });
+    });
+  }
+
+  public isAdmin() {
+    const role = 'admin' as unknown as Roles;
+    return this.selfMember?.role == role;
   }
 
   private loadContent () {

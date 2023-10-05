@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-
-import { AuthService } from './auth-service.service';
-import api from 'src/keys';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AllGroupObservable, FullGroupObservable, GroupObservable } from 'src/@types/observables/GroupObservable';
-import { User } from 'src/@types/user/users';
-import { UserObserver } from 'src/@types/observables/UserObservable';
 import { AlertsService } from './alerts.service';
+import { AuthService } from './auth-service.service';
+import type { AllGroupObservable, FullGroupObservable, GroupObservable } from 'src/@types/observables/GroupObservable';
+import type { UserObserver } from 'src/@types/observables/UserObservable';
+import api from 'src/keys';
+import { Access } from 'src/@types/groups/access';
+import { Roles } from 'src/@types/groups/roles';
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +81,20 @@ export class GroupsService {
         this.alertsService.danger('No se ha podido rechazar la solicitud');
       }
     );
+  }
+
+  public editMember (uuid: string, uuidf: string, access: Access[], role: Roles) {
+    console.log('edit member executed');
+    console.log(api.groupsEndpoint + `/${uuid}/members/${uuidf}`);
+    this.http.patch(api.groupsEndpoint + `/${uuid}/members/${uuidf}`, { access, role }, { withCredentials: true }).subscribe(
+      (r) => {
+        this.alertsService.success(`Se ha editado el usuario`);
+        console.log(r);
+      },
+      (e) => {
+        console.log(e);
+        this.alertsService.danger('No se ha podido editar el usuario');
+      }
+    )
   }
 }

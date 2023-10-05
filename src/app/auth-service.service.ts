@@ -66,6 +66,10 @@ export class AuthService {
   }
 
   public logout (): void {
-    this.http.post(api.authEndpoint + '/logout', {}, { headers: this.getHeaders(), withCredentials: true, observe: 'response' });
+    console.log('Logout??')
+    this.http.post(api.authEndpoint + '/logout', {}, { headers: this.getHeaders(), withCredentials: true, observe: 'response' }).subscribe(
+      (res) => window.location.href = '/',
+      (err) => console.log(err),
+    );
   }
 }

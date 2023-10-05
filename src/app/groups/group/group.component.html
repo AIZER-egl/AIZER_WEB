@@ -15,10 +15,10 @@
             <span *ngIf="content_type == 'logHistory'">{{contentf.timestamp}}</span>
         </div>
         <div class="actions">
-            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/users/' + contentf.user.uuid">Ver</a>
-            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/users/' + contentf.user.uuid + '/edit'">Editar</a>
+            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/members/' + contentf.user.uuid">Ver</a>
+            <a *ngIf="content_type == 'members' && isAdmin()" [routerLink]="'/groups/' + uuid + '/members/' + contentf.user.uuid + '/edit'">Editar</a>
 
-            <a *ngIf="content_type == 'membersRequests'" [routerLink]="'/users/' + uuid">Ver</a>
+            <a *ngIf="content_type == 'membersRequests'" [routerLink]="'/users/' + contentf.uuid">Ver</a>
             <a *ngIf="content_type == 'membersRequests'" (click)="acceptMemberRequest(contentf.uuid)">Aceptar</a>
             <a *ngIf="content_type == 'membersRequests'" (click)="rejectMemberRequest(contentf.uuid)">Rechazar</a>
         </div>

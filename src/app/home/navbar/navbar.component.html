@@ -1,8 +1,9 @@
 <nav *ngIf="!group">
     <a href="/">Inicio</a>
-    <a href="/login" *ngIf="!user">Iniciar sesión</a>
-    <a href="/groups" *ngIf="user">Mis grupos</a>
-    <a href="/logout" *ngIf="user">Cerrar sesión</a>
+    <a href="/login" *ngIf="!user">Iniciar sesión  </a>
+    <a href="/groups" *ngIf="user">Mis grupos  </a>
+    <a href="/logout" *ngIf="user">Cerrar sesión  </a>
+    <p *ngIf="user">Hola {{user.username}}</p>
 </nav>
 
 

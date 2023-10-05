@@ -17,7 +17,6 @@ export class AuthComponent {
   ) {
     if (this.url == '/logout') {
       this.authService.logout();
-      window.location.href = '/';
     }
 
     if (this.url == '/login') {

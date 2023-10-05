@@ -1,4 +1,5 @@
 import { FullGroup, Group } from "../groups/groups";
+import { FullMember, Member } from "../groups/member";
 
 interface GroupObservable {
     group: Group;
@@ -17,4 +18,12 @@ interface FullGroupObservable {
     group: FullGroup;
 }
 
-export { GroupObservable, GroupsObservable, AllGroupObservable, FullGroupObservable };
+interface FullMemberObservable {
+    member: FullMember;
+}
+
+interface MemberObservable {
+    member: Member,
+}
+
+export { GroupObservable, GroupsObservable, AllGroupObservable, FullGroupObservable, FullMemberObservable, MemberObservable };

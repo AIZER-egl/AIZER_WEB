@@ -1,1 +1,45 @@
-<p>users works!</p>
+<app-navbar *ngIf="content_type == 'edit' || content_type == 'member'" [group]="url[1]"></app-navbar>
+
+<div class="user">
+    <p *ngIf="content_type == 'error'">No se ha podido encontrar información</p>
+    <a *ngIf="content_type == 'error'" routerLink="/groups">Volver a un lugar seguro</a>
+
+    <p *ngIf="content_type == 'user'">{{content.user.username}}</p>
+    <p *ngIf="content_type == 'user'">Email {{content.user.email}}</p>
+    <p *ngIf="content_type == 'user'">Campus {{content.user.schoolInformation.campus}}</p>
+    <p *ngIf="content_type == 'user'">Año de graduación {{content.user.schoolInformation.graduationYear}}</p>
+
+    <div class="groups" *ngIf="content_type == 'user'">
+        <h3>Grupos: </h3>
+        <div class="group" *ngFor="let groupf of content.groups">
+            <p>{{groupf.name}}</p>
+            <a [routerLink]="'/groups/' + groupf.uuid">Ver</a>
+        </div>
+    </div>
+
+    <p *ngIf="content_type == 'member'">{{content.user.username}}</p>
+    <p *ngIf="content_type == 'member'">Email: {{content.user.email}}</p>
+    <p *ngIf="content_type == 'member'">Campus: {{content.user.schoolInformation.campus}}</p>
+    <p *ngIf="content_type == 'member'">Año de graduación: {{content.user.schoolInformation.graduationYear}}</p>
+    <p *ngIf="content_type == 'member'">Acceso: {{toStringAccess(content.access)}}</p>
+    <p *ngIf="content_type == 'member'">Rol: {{content.role}}</p>
+    <a *ngIf="content_type == 'member' && isAdmin()" [routerLink]="'/groups/' + url[1] + '/members/' + content.user.uuid + '/edit'">Editar</a>
+
+    <h3 *ngIf="content_type == 'edit'">{{content?.member?.user?.username}}</h3>
+    <div *ngIf="content_type == 'edit'">
+        <h3>Rol</h3>
+        <select name="role" id="role" (change)="roleChange($event)">
+            <option value="admin" [selected]="content?.member?.role == 'admin'" [disabled]="!selfMember?.owner">Administrador</option>
+            <option value="member" [selected]="content?.member?.role == 'member'" [disabled]="!selfMember?.owner">Miembro</option>
+        </select>        
+        <br>
+        <h3>Acceso</h3>
+        <div class="checkbox" *ngFor="let acc of accesses">
+            <p>{{acc}}</p>
+            <input type="checkbox" (change)="checkboxChange($event, acc)" [checked]="includesAccess(acc)">
+        </div>
+        <button (click)="submit()">Actualizar usuario</button>
+    </div>
+</div>
+
+<a (click)="printContent()">Mostrar content</a>
