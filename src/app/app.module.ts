@@ -14,6 +14,7 @@ import { AlertsComponent } from './alerts/alerts.component';
 import { GroupsComponent } from './groups/groups/groups.component';
 import { GroupComponent } from './groups/group/group.component';
 import { UsersComponent } from './users/users.component';
+import { ItemsComponent } from './items/items.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { UsersComponent } from './users/users.component';
     GroupsComponent,
     GroupComponent,
     UsersComponent,
+    ItemsComponent,
   ],
   imports: [
     CommonModule,

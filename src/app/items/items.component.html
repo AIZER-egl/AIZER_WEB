@@ -1,0 +1,73 @@
+<app-navbar [group]="group_uuid"></app-navbar>
+
+<div class="content" *ngIf="content_type == 'items'">
+    <p *ngIf="action == 'view'">{{content?.name}}</p>
+    <p *ngIf="action == 'view'">{{content?.description}}</p>
+    <p *ngIf="action == 'view'">{{content?.price}}</p>
+    <p *ngIf="action == 'view'">{{content?.amount}}</p>
+    <p *ngIf="action == 'view'">{{content?.created_at}}</p>
+    <p *ngIf="action == 'view'">{{content?.updated_at}}</p>
+
+
+    <a *ngIf="action == 'view'" [routerLink]="'/groups/' + group_uuid + '/items/' + content?.uuid + '/edit'">Editar</a>
+    <a *ngIf="action == 'view'" (click)="deleteItem(content?.uuid)">Eliminar</a>
+
+    <form *ngIf="action == 'create'" [formGroup]="createItemForm">
+        <input type="text" formControlName="name" placeholder="Name">
+        <input type="text" formControlName="description" placeholder="Description">
+        <input type="text" formControlName="price" placeholder="Price">
+        <button type="submit" (click)="submitCreateItemForm()">Create</button>
+    </form>
+
+    <form *ngIf="action == 'edit'" [formGroup]="editItemForm">
+        <input type="text" formControlName="name" [value]="content?.name">
+        <input type="text" formControlName="description" [value]="content?.description">
+        <input type="text" formControlName="price" [value]="content?.price">
+        <input type="number" formControlName="amount" [value]="content?.amount">
+        <button type="submit" (click)="submitEditItemForm()">Update</button>
+    </form>
+</div>
+
+<div class="content" *ngIf="content_type == 'shipments'">
+
+    <form [formGroup]="createShipmentForm">
+        <input type="text" formControlName="store" placeholder="Tienda">
+        <input type="number" formControlName="delieveryFee" placeholder="Costo de envío">
+        <input type="text" formControlName="delieveryReference" placeholder="Clave de referencia">
+        <select name="delieveryStatus" id="delieveryStatus" formControlName="delieveryStatus">
+            <option value="pending">Pendiente</option>
+            <option value="delivered">Entregado</option>
+        </select>
+
+        <button type="submit" (click)="submitCreateShipmentForm()">Crear pedido</button>
+    </form>
+    <div class="selectedItems" *ngIf="action == 'create'">
+        <div class="item" *ngFor="let item of selectedItems">
+            <p>{{item.name}}</p>
+            <p>{{item.description}}</p>
+            <p>{{item.price}}</p>
+            <p>{{item.amount}}</p>
+
+            <div class="actions">
+                <i class='bx bx-plus' (click)="addItemAmountToShipment(item.uuid)"></i>
+                <i class='bx bx-x' (click)="removeItemToShipment(item.uuid)"></i>
+                <i class='bx bx-minus' (click)="substractItemAmountToShipment(item.uuid)"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="items">
+        <label for="searchbar">Buscar objetos</label>
+        <input type="text" name="searchbard" id="searchbar">
+    
+        <div class="page">
+            <div class="item" *ngFor="let item of content?.items?.slice(0 * currentPage, 10 * (currentPage + 1))">
+                <p>{{item.name}}</p>
+                <p>{{item.description}}</p>
+                <p>{{item.price}}</p>
+                <p>{{item.amount}}</p>
+                <button (click)="addItemToShipment(item.uuid)">Añadir</button>
+            </div>
+        </div>
+    </div>
+</div>

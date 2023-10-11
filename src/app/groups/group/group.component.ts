@@ -39,6 +39,10 @@ export class GroupComponent {
     })
   }
 
+  public log () {
+    console.log('Ct', this.content_type);
+    console.log('C', this.content);
+  }
   private loadSelf() {
     this.authService.getUser().subscribe((r) => {
       this.self = r?.user as User;

@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core';
 import { User } from 'src/@types/user/users';
 import { AuthService } from 'src/app/auth-service.service';
 
-import { FullGroup } from 'src/@types/groups/groups';
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',

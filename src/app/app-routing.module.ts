@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home/home.component';
 import { GroupsComponent } from './groups/groups/groups.component';
 import { GroupComponent } from './groups/group/group.component';
 import { UsersComponent } from './users/users.component';
+import { ItemsComponent } from './items/items.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,12 @@ const routes: Routes = [
   { path: 'groups/:uuid', component: GroupComponent },
   { path: 'groups/:uuid/members/:uuidf', component: UsersComponent },
   { path: 'groups/:uuid/members/:uuidf/edit', component: UsersComponent },
+  { path: 'groups/:uuid/items/shipments', component: ItemsComponent },
+  { path: 'groups/:uuid/items/shipments/create', component: ItemsComponent },
+  { path: 'groups/:uuid/items/create', component: ItemsComponent },
+  { path: 'groups/:uuid/items/:uuidf', component: ItemsComponent },
+  { path: 'groups/:uuid/items/:uuidf/edit', component: ItemsComponent },
+
   { path: 'users/:uuid', component: UsersComponent },
 ];
 

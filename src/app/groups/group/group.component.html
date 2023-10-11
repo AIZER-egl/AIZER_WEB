@@ -3,24 +3,32 @@
 <div class="cards">
     <div class="card" *ngFor="let contentf of content">
         <div class="content">
-            <p *ngIf="content_type == 'members'">{{contentf.user.username}}</p>
-            <p *ngIf="content_type == 'members'">{{contentf.user.email}}</p>
+            <p *ngIf="content_type == 'members'">{{contentf?.user?.username}}</p>
+            <p *ngIf="content_type == 'members'">{{contentf?.user?.email}}</p>
         
-            <p *ngIf="content_type == 'membersRequests'">{{contentf.username}}</p>
-            <p *ngIf="content_type == 'membersRequests'">{{contentf.email}}</p>
+            <p *ngIf="content_type == 'membersRequests'">{{contentf?.username}}</p>
+            <p *ngIf="content_type == 'membersRequests'">{{contentf?.email}}</p>
 
-            <p *ngIf="content_type == 'logHistory'">{{contentf.user.username}}</p>
-            <p *ngIf="content_type == 'logHistory'">{{contentf.message}}</p>
-            <span *ngIf="content_type == 'logHistory'">{{contentf.action}}</span>
-            <span *ngIf="content_type == 'logHistory'">{{contentf.timestamp}}</span>
+            <p *ngIf="content_type == 'logHistory'">{{contentf?.user?.username}}</p>
+            <p *ngIf="content_type == 'logHistory'">{{contentf?.message}}</p>
+            <span *ngIf="content_type == 'logHistory'">{{contentf?.action}}</span>
+            <span *ngIf="content_type == 'logHistory'">{{contentf?.timestamp}}</span>
+
+            <p *ngIf="content_type == 'items'">{{contentf?.name}}</p>
+            <p *ngIf="content_type == 'items'">{{contentf?.description}}</p>
+            <p *ngIf="content_type == 'items'">{{contentf?.price}}</p>
+            <p *ngIf="content_type == 'items'">{{contentf?.amount}}</p>
         </div>
         <div class="actions">
-            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/members/' + contentf.user.uuid">Ver</a>
-            <a *ngIf="content_type == 'members' && isAdmin()" [routerLink]="'/groups/' + uuid + '/members/' + contentf.user.uuid + '/edit'">Editar</a>
+            <a *ngIf="content_type == 'members'" [routerLink]="'/groups/' + uuid + '/members/' + contentf?.user?.uuid">Ver</a>
+            <a *ngIf="content_type == 'members' && isAdmin()" [routerLink]="'/groups/' + uuid + '/members/' + contentf?.user?.uuid + '/edit'">Editar</a>
 
-            <a *ngIf="content_type == 'membersRequests'" [routerLink]="'/users/' + contentf.uuid">Ver</a>
-            <a *ngIf="content_type == 'membersRequests'" (click)="acceptMemberRequest(contentf.uuid)">Aceptar</a>
-            <a *ngIf="content_type == 'membersRequests'" (click)="rejectMemberRequest(contentf.uuid)">Rechazar</a>
+            <a *ngIf="content_type == 'membersRequests'" [routerLink]="'/users/' + contentf?.uuid">Ver</a>
+            <a *ngIf="content_type == 'membersRequests'" (click)="acceptMemberRequest(contentf?.uuid)">Aceptar</a>
+            <a *ngIf="content_type == 'membersRequests'" (click)="rejectMemberRequest(contentf?.uuid)">Rechazar</a>
+
+            <a *ngIf="content_type == 'items'" [routerLink]="'/groups/' + uuid + '/items/' + contentf?.uuid">Ver producto</a>
+            <a *ngIf="content_type == 'items'" [routerLink]="'/groups/' + uuid + '/items/' + contentf?.uuid + '/edit'">Editar producto</a>
         </div>
     </div>
 </div>
@@ -28,4 +36,9 @@
 <div class="content_actions">
     <a *ngIf="content_type == 'membersRequests'" (click)="acceptAllMemberRequests()">Aceptar todos</a>
     <a *ngIf="content_type == 'membersRequests'" (click)="rejectAllMemberRequests()">Rechazar todos</a>
+
+    <a *ngIf="content_type == 'items'" [routerLink]="'/groups/' + uuid + '/items/create'">Crear producto</a>
+    <a *ngIf="content_type == 'items'" [routerLink]="'/groups/' + uuid + '/items/shipments/create'">Agregar productos</a>
+    <a *ngIf="content_type == 'items'" [routerLink]="'/groups/' + uuid + '/items/shipments'">Ver pedidos</a>
 </div>
+<button (click)="log()">mostrar contenido</button>

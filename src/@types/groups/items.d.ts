@@ -2,8 +2,8 @@ interface Items {
     name: string;
     uuid: string;
     price: number;
-    unit: string;
-    quantity: number;
+    description: string;
+    amount: number;
     lastModified: Date;
     createdAt: Date;    
 }
